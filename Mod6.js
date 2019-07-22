@@ -1,60 +1,56 @@
+class Notepad {
+  constructor(notes = []) {
+      this._notes = notes;
+  }
 
-const Notepad = function Notepad(notes = []) {
-       this.notes = notes;
-
-       this.getNotes = function() {
-        return this.notes;
-       }
-       this.findNoteById = function(id) {
-        for(const note of this.notes){
-          if (note.id === id) {
-            return undefined;
-           }
+  get notes() {
+      return this._notes;
+  }
+     findNoteById = function(id) {
+      return this._notes.find(e => e.id === id);
+       return undefind;
+     }
+     saveNote = function(note) {
+      this._notes.push(note);
+      return note;
+     }
+     deleteNote = function(id) {
+         for(let i = 0; i < this._notes.length; i += 1) {
+            if(this._notes[i].id === id) {
+                this._notes.splice(i, 1);
+                return;
+            }
+         }
+     }
+     updateNoteContent = function(id, updatedContent) {
+      Object.assign(this.findNoteById(id), updatedContent);
+     }
+     updateNotePriority = function(id, priority) {
+       const findNote = this.findNoteById(id);
+       if(!findNote) return;
+       findNote.priority = priority;
+     }
+     filterNotesByQuery = function(query = '') {
+       const filderedNotes = [];
+       for(const note of this._notes) {
+         const noteContent = `${note.title} ${note.body}`;
+         const hasQuery = noteContent.toLowerCase().includes(query.toLowerCase());
+         if(hasQuery) {
+           filderedNotes.push(note);
          }
        }
-       this.saveNote = function(note) {
-        this.notes.push(note);
-        return note;
-       }
-       this.deleteNote = function(id) {
-           for(let i = 0; i < this.notes.length; i += 1) {
-              if(this.notes[i].id === id) {
-                  this.notes.splice(i, 1);
-                  return;
-              }
-           }
-       }
-       this.updateNoteContent = function(id, updatedContent) {
-        Object.assign(this.findNoteById(id), updatedContent);
-       }
-       this.updateNotePriority = function(id, priority) {
-         const findNote = this.findNoteById(id);
-         if(!findNote) return;
-         findNote.priority = priority;
-       }
-       this.filterNotesByQuery = function(query = '') {
-         const filderedNotes = [];
-         for(const note of this.notes) {
-           const noteContent = `${note.title} ${note.body}`;
-           const hasQuery = noteContent.toLowerCase().includes(query.toLowerCase());
-           if(hasQuery) {
-             filderedNotes.push(note);
-           }
-         }
-         return filderedNotes;
-       }
-       this.filterNotesByPriority = function(priority) {
-         return this.notes.filter(e => e.priority === priority);
-       }
-  };
+       return filderedNotes;
+     }
+     filterNotesByPriority = function(priority) {
+       return this._notes.filter(e => e.priority === priority);
+     }
 
-      Notepad.Priority = {
-        LOW: 0,
-        NORMAL: 1,
-        HIGH: 2,
-      };
-
-
+  static Priority = {
+      LOW: 0,
+      NORMAL: 1,
+      HIGH: 2,
+    };
+}
 
 const initialNotes = [
   {
@@ -76,9 +72,9 @@ const initialNotes = [
 const notepad = new Notepad(initialNotes);
 
 /*
- * Смотрю что у меня в заметках после инициализации
- */
-console.log('Все текущие заметки: ', notepad.getNotes());
+  Смотрю что у меня в заметках после инициализации
+*/
+console.log('Все текущие заметки: ', notepad.notes);
 
 /*
  * Добавляю еще 2 заметки и смотрю что получилось
@@ -99,27 +95,21 @@ notepad.saveNote({
   priority: Notepad.Priority.LOW,
 });
 
-console.log('Все текущие заметки: ', notepad.getNotes());
+console.log('Все текущие заметки: ', notepad.notes);
 
 /*
  * Зима уже близко, пора поднять приоритет на покупку одежды
  */
 notepad.updateNotePriority('id-4', Notepad.Priority.NORMAL);
 
-console.log(
-  'Заметки после обновления приоритета для id-4: ',
-  notepad.getNotes(),
-);
+console.log('Заметки после обновления приоритета для id-4: ', notepad.notes);
 
 /*
  * Решил что фреймворки отложу немного, понижаю приоритет
  */
 notepad.updateNotePriority('id-3', Notepad.Priority.LOW);
 
-console.log(
-  'Заметки после обновления приоритета для id-3: ',
-  notepad.getNotes(),
-);
+console.log('Заметки после обновления приоритета для id-3: ', notepad.notes);
 
 /*
  * Решил отфильтровать заметки по слову html
@@ -154,11 +144,11 @@ notepad.updateNoteContent('id-3', {
 
 console.log(
   'Заметки после обновления контента заметки с id-3: ',
-  notepad.getNotes(),
+  notepad.notes,
 );
 
 /*
  * Повторил HTML и CSS, удаляю запись c id-2
  */
 notepad.deleteNote('id-2');
-console.log('Заметки после удаления с id -2: ', notepad.getNotes());
+console.log('Заметки после удаления с id -2: ', notepad.notes);
