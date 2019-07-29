@@ -8,7 +8,6 @@ class Notepad {
   }
      findNoteById = function(id) {
       return this._notes.find(e => e.id === id);
-       return undefind;
      }
      saveNote = function(note) {
       this._notes.push(note);
