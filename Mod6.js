@@ -14,12 +14,7 @@ class Notepad {
       return note;
      }
      deleteNote = function(id) {
-         for(let i = 0; i < this._notes.length; i += 1) {
-            if(this._notes[i].id === id) {
-                this._notes.splice(i, 1);
-                return;
-            }
-         }
+      this.notes = this.notes.filter(e => e.id !== id);
      }
      updateNoteContent = function(id, updatedContent) {
       Object.assign(this.findNoteById(id), updatedContent);
@@ -30,15 +25,7 @@ class Notepad {
        findNote.priority = priority;
      }
      filterNotesByQuery = function(query = '') {
-       const filderedNotes = [];
-       for(const note of this._notes) {
-         const noteContent = `${note.title} ${note.body}`;
-         const hasQuery = noteContent.toLowerCase().includes(query.toLowerCase());
-         if(hasQuery) {
-           filderedNotes.push(note);
-         }
-       }
-       return filderedNotes;
+      return  this.notes.filter(e => e.body.includes(query) || e.title.includes(query));
      }
      filterNotesByPriority = function(priority) {
        return this._notes.filter(e => e.priority === priority);

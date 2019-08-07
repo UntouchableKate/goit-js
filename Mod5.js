@@ -1,59 +1,58 @@
 
 const Notepad = function Notepad(notes = []) {
-       this.notes = notes;
+  this.notes = notes;
 
-       this.getNotes = function() {
-        return this.notes;
-       }
-       this.findNoteById = function(id) {
-        for(const note of this.notes){
-          if (note.id === id) {
-            return undefined;
-           }
-         }
-       }
-       this.saveNote = function(note) {
-        this.notes.push(note);
-        return note;
-       }
-       this.deleteNote = function(id) {
-           for(let i = 0; i < this.notes.length; i += 1) {
-              if(this.notes[i].id === id) {
-                  this.notes.splice(i, 1);
-                  return;
-              }
-           }
-       }
-       this.updateNoteContent = function(id, updatedContent) {
-        Object.assign(this.findNoteById(id), updatedContent);
-       }
-       this.updateNotePriority = function(id, priority) {
-         const findNote = this.findNoteById(id);
-         if(!findNote) return;
-         findNote.priority = priority;
-       }
-       this.filterNotesByQuery = function(query = '') {
-         const filderedNotes = [];
-         for(const note of this.notes) {
-           const noteContent = `${note.title} ${note.body}`;
-           const hasQuery = noteContent.toLowerCase().includes(query.toLowerCase());
-           if(hasQuery) {
-             filderedNotes.push(note);
-           }
-         }
-         return filderedNotes;
-       }
-       this.filterNotesByPriority = function(priority) {
-         return this.notes.filter(e => e.priority === priority);
-       }
+  this.getNotes = function () {
+    return this.notes;
   };
+  this.findNoteById = function (id) {
+    for (const note of this.notes) {
+      if (note.id === id) {
+        return undefined;
+      }
+    }
+  };
+  this.saveNote = function (note) {
+    this.notes.push(note);
+    return note;
+  };
+  this.deleteNote = function (id) {
+    for (let i = 0; i < this.notes.length; i += 1) {
+      if (this.notes[i].id === id) {
+        this.notes.splice(i, 1);
+        return;
+      }
+    }
+  };
+  this.updateNoteContent = function (id, updatedContent) {
+    Object.assign(this.findNoteById(id), updatedContent);
+  };
+  this.updateNotePriority = function (id, priority) {
+    const findNote = this.findNoteById(id);
+    if (!findNote) return;
+    findNote.priority = priority;
+  };
+  this.filterNotesByQuery = function (query = '') {
+    const filderedNotes = [];
+    for (const note of this.notes) {
+      const noteContent = `${note.title} ${note.body}`;
+      const hasQuery = noteContent.toLowerCase().includes(query.toLowerCase());
+      if (hasQuery) {
+        filderedNotes.push(note);
+      }
+    }
+    return filderedNotes;
+  };
+  this.filterNotesByPriority = function (priority) {
+    return this.notes.filter(e => e.priority === priority);
+  };
+};
 
-      Notepad.Priority = {
-        LOW: 0,
-        NORMAL: 1,
-        HIGH: 2,
-      };
-
+Notepad.Priority = {
+  LOW: 0,
+  NORMAL: 1,
+  HIGH: 2,
+};
 
 
 const initialNotes = [
