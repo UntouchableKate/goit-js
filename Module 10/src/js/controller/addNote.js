@@ -6,7 +6,6 @@ import addListItem from '../view/addListItem';
 
 function addNote(event) {
   event.preventDefault();
-  const notyf = new Notyf();
   const title = refs.title.value || '';
   const body = refs.body.value || '';
   if (title.length === 0 || body.length === 0) {
