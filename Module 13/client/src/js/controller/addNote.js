@@ -26,7 +26,7 @@ function addNote(event) {
   };
   if (!state.note) {
     notepad.saveNote(note).then((data) => {
-      addListItem(refs.list, note);
+      addListItem(refs.list, data);
       notyf.success('Заметка успешно добавлена!');
     });
   }

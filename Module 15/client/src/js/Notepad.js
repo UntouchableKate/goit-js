@@ -1,5 +1,4 @@
-import * as api from '../services/api';
-import renderNoteList from './view/renderNoteList';
+const api = require('../services/api.async');
 
 class Notepad {
   constructor(notes = []) {
@@ -39,7 +38,11 @@ class Notepad {
 
 
   updateNotePriority(id, priority) {
-    this.findNoteById(id).priority = priority;
+    const note = this.findNoteById(id);
+    if (note) {
+      note.priority = priority;
+      return note;
+    }
   }
 
   filterNotesByQuery(query) {
@@ -54,5 +57,4 @@ class Notepad {
   }
 }
 
-
-export default Notepad;
+module.exports = Notepad;
